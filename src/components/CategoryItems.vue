@@ -34,50 +34,50 @@ function getItemInRow(rowIdx, positionIdx) {
 
 
 <style lang="scss" scoped>
-	.category {
-		width: 100%;
+.category {
+	width: 100%;
 
-		&:not(:last-child) { margin-bottom: 12px; }
-		&.collapsed {
-			.itemsRow { display: none; }
-			.collapser { transform: rotate(-90deg); }
+	&:not(:last-child) { margin-bottom: 12px; }
+	&.collapsed {
+		.itemsRow { display: none; }
+		.collapser { transform: rotate(-90deg); }
+	}
+
+	.header {
+		background-color: #d2dee2;
+		border-top-left-radius: 4px;
+		border-top-right-radius: 4px;
+		text-align: left;
+		padding: 4px 10px;
+		cursor: pointer;
+		user-select: none;
+	}
+
+	.header, .item { border: 1px solid #888; }
+
+	.item {
+		border-top: none;
+
+		@media (min-width: 768px) {
+			& + .item { border-left: none; }
 		}
-
-		.header {
-			background-color: #d2dee2;
-			border-top-left-radius: 4px;
-			border-top-right-radius: 4px;
-			text-align: left;
-			padding: 4px 10px;
-			cursor: pointer;
-			user-select: none;
-		}
-
-		.header, .item { border: 1px solid #888; }
-
-		.item {
-			border-top: none;
-
-			@media (min-width: 768px) {
-				& + .item { border-left: none; }
-			}
-		}
 	}
+}
 
-	.collapser {
-		display: inline-block;
-		margin-right: 4px;
-		transform: rotate(90deg);
-		transition: transform 0.15s;
-	}
+.collapser {
+	display: inline-block;
+	margin-right: 4px;
+	transform: rotate(90deg);
+	transition: transform 0.15s;
+}
 
-	.itemsRow {
-		display: grid;
-		grid-template-columns: 1fr  1fr;
-	}
+.itemsRow {
+	display: grid;
+	grid-template-columns: 1fr  1fr;
+}
 
 
-	@media (max-width: 767px) {
-		.itemsRow { grid-template-columns: 100%; }
-	}
+@media (max-width: 767px) {
+	.itemsRow { grid-template-columns: 100%; }
+}
 </style>

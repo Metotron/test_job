@@ -46,7 +46,7 @@
 		tr(v-for="cartItem in cart.cart" :key="cartItem.id")
 			td {{ cartItem.item.name }}
 			td.count #[input(type="number" min="0" :max="cartItem.item.restCount" :title="`Максимум: ${cartItem.item.restCount}`" :value="cartItem.count" @input="updateCartItemCount(cartItem.id, $event.target.value)" @change="updateCartItemCount(cartItem.id, $event.target.value)")] шт.
-				.notice(v-if="cartItem.item.restCount < 3") Количество ограничено
+				.notice(v-if="cartItem.item.restCount < 4" title="Остаток товара меньше четырёх единиц") Количество ограничено
 			td.price #[span.value {{ convertPriceToRubles(cartItem.item.price) }}] / шт.
 			td
 				span.delete(@click="cart.removeFromCart(cartItem.id)") Удалить
@@ -55,56 +55,67 @@
 
 
 <style lang="scss" scoped>
-	.cart { max-width: 800px; }
+.cart { max-width: 800px; }
 
-	.cartTable {
-		border-collapse: collapse;
-		width: 100%;
+.cartTable {
+	border-collapse: collapse;
+	width: 100%;
+}
+
+th, td {
+	padding: 10px 8px;
+	vertical-align: top;
+}
+
+tr:not(:last-child) td { border-bottom: 1px solid #eee; }
+th {
+	border-bottom: 1px solid #eee;
+	color: #9f9f9f;
+	text-align: left;
+
+	&.price { text-align: right; }
+}
+
+td.count {
+	color: #888;
+
+	input { width: 60px; }
+
+	.notice {
+		margin-top: 4px;
+		background-color: #fffaf2;
+		color: #f60;
+		padding: 4px;
+		border: 1px dotted currentColor;
 	}
+}
 
-	th, td { padding: 10px 8px; }
+.price {
+	color: #888;
+	white-space: nowrap;
+	text-align: right;
 
-	tr:not(:last-child) td { border-bottom: 1px solid #eee; }
-	th {
-		border-bottom: 1px solid #eee;
-		color: #9f9f9f;
-		text-align: left;
-
-		&.price { text-align: right; }
+	.value {
+		font-weight: 500;
+		font-size: 1.1em;
+		color: #000;
 	}
+}
 
-	td.count {
-		color: #888;
+.totalSum {
+	margin-top: 2em;
+	text-align: right;
+	color: #999;
 
-		input { width: 60px; }
+	.value {
+		color: #f60;
+		font-weight: bold;
 	}
+}
 
-	.price {
-		color: #888;
-		white-space: nowrap;
-		text-align: right;
-
-		.value {
-			font-weight: 500;
-			font-size: 1.1em;
-			color: #000;
-		}
-	}
-
-	.totalSum {
-		margin-top: 2em;
-		text-align: right;
-		color: #999;
-
-		.value {
-			color: #f60;
-			font-weight: bold;
-		}
-	}
-
-	.delete {
-		color: #888;
-		cursor: pointer;
-		user-select: none;
-	}
+.delete {
+	color: #888;
+	cursor: pointer;
+	user-select: none;
+}
 </style>

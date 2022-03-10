@@ -51,6 +51,22 @@ export const cartStore = defineStore('cart', {
 			}
 
 			this.cart[cartItemIndex].count = count
+		},
+
+		/**
+		 * Актуализация информации о товарах в корзине в соответствии с новыми данными
+		 * @param {array} items - Массив товаров с актуальными данными
+		 */
+		refreshCartItems(items) {
+			this.cart.forEach(cartItem => {
+				const actualData = items.find(item => item.id == cartItem.id)
+				if (!actualData) {
+					return 0
+				}
+
+				cartItem.item.price = actualData.price
+				cartItem.item.restCount = actualData.restCount
+			})
 		}
 	},
 
